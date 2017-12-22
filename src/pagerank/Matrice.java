@@ -17,9 +17,10 @@ public class Matrice{
         tab= new float[taille][taille];
     }
 
-    public void fill(int i, int j, float value){
+    public void fillCase(int i, int j, float value){
         tab[i][j] = value;
     }
+
 
     public boolean isStochastique(){
         for (int j=0;j<taille;j++){//pour toutes les colonnes
@@ -34,4 +35,20 @@ public class Matrice{
         return true;
     }
 
+    public void display() {
+        System.out.println(this.toString());
+    }
+
+    @Override
+    public String toString() {
+        String resul="";
+        for(int i =0; i<taille;i++){
+            resul+="{";
+            for(int j =0;j<taille;j++){
+
+            }
+            resul+="}";
+        }
+        return resul;
+    }
 }
