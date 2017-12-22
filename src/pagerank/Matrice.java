@@ -45,9 +45,9 @@ public class Matrice{
         for(int i =0; i<taille;i++){
             resul+="{";
             for(int j =0;j<taille;j++){
-
+                resul+=" "+tab[i][j]+" ";
             }
-            resul+="}";
+            resul+="}\n";
         }
         return resul;
     }
