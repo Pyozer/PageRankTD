@@ -2,6 +2,7 @@ package pagerank;
 
 public class Pagerank {
     public static void main(String[] args){
+        Window window = new Window();
         //waw
         int taille =10;
        Matrice mat = new Matrice(taille);
