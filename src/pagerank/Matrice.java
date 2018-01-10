@@ -5,18 +5,43 @@ package pagerank;
  */
 public class Matrice{
 
+    //attributs
     private float tab[][];
-
     private int taille;
 
+
+    //Constructeurs
     public Matrice(){
         this(10);
     }
+
     public Matrice(int taille){
         this.taille=taille;
         tab= new float[taille][taille];
     }
 
+    //Getters et setters
+    public float[][] getTab() {
+        return tab;
+    }
+    public void setTab(float[][] tab) {
+        this.tab = tab;
+    }
+
+    public int getTaille() {
+        return taille;
+    }
+
+    public void setTaille(int taille) {
+        this.taille = taille;
+    }
+
+    /**
+     * fonction qui permet de remplir simplement les cases de l'attribut tab
+     * @param i
+     * @param j
+     * @param value
+     */
     public void fillCase(int i, int j, float value){
         tab[i][j] = value;
     }
@@ -35,10 +60,21 @@ public class Matrice{
         return true;
     }
 
+
+
+    /**
+     * demande l'afficage de la matrice dans la console
+     */
+
     public void display() {
         System.out.println(this.toString());
     }
 
+
+    /**
+     *
+     * @return la matrice dans un format lisible
+     */
     @Override
     public String toString() {
         String resul="";
