@@ -35,9 +35,6 @@ public class Page {
 
     @Override
     public String toString() {
-        return "Page{" +
-                "importance=" + importance +
-                ", id=" + id +
-                '}';
+        return "Page{importance=" + importance + ", id=" + id +"}";
     }
 }
