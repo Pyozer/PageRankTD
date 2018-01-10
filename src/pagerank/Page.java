@@ -12,4 +12,24 @@ public class Page {
         this.id = id;
     }
 
+    public Page(int id) {
+        this.importance=0.0f;
+        this.id = id;
+    }
+
+    public float getImportance() {
+        return importance;
+    }
+
+    public void setImportance(float importance) {
+        this.importance = importance;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

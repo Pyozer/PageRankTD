@@ -1,8 +1,14 @@
 package pagerank;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
 public class Pagerank {
     public static void main(String[] args){
         Window window = new Window();
+        List<Page> liste = new ArrayList<Page>();
+        liste.add(new Page());
         //waw
         int taille =10;
        Matrice mat = new Matrice(taille);
