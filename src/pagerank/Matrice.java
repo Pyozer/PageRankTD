@@ -3,29 +3,31 @@ package pagerank;
 /**
  * Created by Leo on 12/12/2017.
  */
-public class Matrice{
+public class Matrice {
+
+    private final static int TAILLE = 10;
 
     //attributs
-    private float tab[][];
+    private float matrice[][];
     private int taille;
 
-
     //Constructeurs
-    public Matrice(){
-        this(10);
+    public Matrice() {
+        this(TAILLE);
     }
 
-    public Matrice(int taille){
-        this.taille=taille;
-        tab= new float[taille][taille];
+    public Matrice(int taille) {
+        this.taille = taille;
+        matrice = new float[taille][taille];
     }
 
     //Getters et setters
-    public float[][] getTab() {
-        return tab;
+    public float[][] getMatrice() {
+        return matrice;
     }
-    public void setTab(float[][] tab) {
-        this.tab = tab;
+
+    public void setMatrice(float[][] tab) {
+        this.matrice = tab;
     }
 
     public int getTaille() {
@@ -38,28 +40,40 @@ public class Matrice{
 
     /**
      * fonction qui permet de remplir simplement les cases de l'attribut tab
-     * @param i
-     * @param j
-     * @param value
+     *
+     * @param col Colonne
+     * @param line Ligne
+     * @param value Valeur
      */
-    public void fillCase(int i, int j, float value){
-        tab[i][j] = value;
+    public void fillCase(int line, int col, float value) {
+        matrice[line][col] = value;
     }
 
-
-    public boolean isStochastique(){
-        for (int j=0;j<taille;j++){//pour toutes les colonnes
-            float total = 0.0f;
-            for(int i=0;i<taille;i++){ //pour chaque valeur dans la colonne
-                total += tab[i][j];
+    public int getNbLinks(int ligne) {
+        int result = 0;
+        for (int col = 0;col < taille;col++) {
+            if(matrice[ligne][col] > 0) {
+                result += 1;
             }
-            if(total!=1.0f){
+        }
+        return result;
+    }
+
+    public boolean isStochastique() {
+        for (int line = 0; line < taille; line++) { // Pour chaque colonne
+            float totalCol = 0.0f;
+
+            for (int col = 0; col < taille; col++) { // Pour chaques valeurs dans la colonne
+                totalCol += matrice[line][col]; // Emplacement (j, i)
+            }
+
+            if (totalCol != 1.0f) { // Si le total (ligne ou colonne) est supérieur à 0 et non égal à 1
+                System.out.println(totalCol);
                 return false;
             }
         }
         return true;
     }
-
 
 
     /**
@@ -72,19 +86,17 @@ public class Matrice{
 
 
     /**
-     *
      * @return la matrice dans un format lisible
      */
     @Override
     public String toString() {
-        String resul="";
-        for(int i =0; i<taille;i++){
-            resul+="{";
-            for(int j =0;j<taille;j++){
-                resul+=" "+tab[i][j]+" ";
+        StringBuilder result = new StringBuilder();
+        for (int line = 0; line < taille; line++) {
+            for (int col = 0; col < taille; col++) {
+                result.append(" ").append(matrice[col][line]).append(" ");
             }
-            resul+="}\n";
+            result.append("\n");
         }
-        return resul;
+        return result.toString();
     }
 }
