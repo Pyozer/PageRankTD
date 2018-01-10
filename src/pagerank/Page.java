@@ -32,4 +32,12 @@ public class Page {
     public void setId(int id) {
         this.id = id;
     }
+
+    @Override
+    public String toString() {
+        return "Page{" +
+                "importance=" + importance +
+                ", id=" + id +
+                '}';
+    }
 }

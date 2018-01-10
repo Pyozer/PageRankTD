@@ -8,7 +8,10 @@ public class Pagerank {
     public static void main(String[] args){
         Window window = new Window();
         List<Page> liste = new ArrayList<Page>();
-        liste.add(new Page());
+        for (int i = 1;i<15;i++) {
+            liste.add(new Page(i));
+        }
+        System.out.println(liste);
         //waw
         int taille =10;
        Matrice mat = new Matrice(taille);
