@@ -12,7 +12,7 @@ public class Pagerank {
             liste.add(new Page(i));
         }
         System.out.println(liste);
-        //waw
+        //wawv
         int taille =10;
        Matrice mat = new Matrice(taille);
        mat.display();
