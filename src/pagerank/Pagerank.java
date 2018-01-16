@@ -5,11 +5,6 @@ import java.util.List;
 
 public class Pagerank {
     public static void main(String[] args) {
-        List<Page> liste = new ArrayList<Page>();
-        for (int i = 1; i < 15; i++) {
-            liste.add(new Page(i));
-        }
-        //System.out.println(liste);
         int i = 0;
         Page page0 = new Page(++i);
         Page page1 = new Page(++i);
@@ -53,6 +48,8 @@ public class Pagerank {
         page9.addPageOut(page8, page10, page11, page12, page13);
         page10.addPageOut(page9, page13);
         page11.addPageOut(page9, page10);
+
+        List<Page> listePage = new ArrayList<>(List.of(page0, page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13));
 
         int taille = 14;
         Matrice mat = new Matrice(taille);
@@ -107,7 +104,7 @@ public class Pagerank {
 
         mat.display();
 
-        Window window = new Window(liste);
+        Window window = new Window(listePage);
 
         System.out.print("Matrice stochastique ? " + mat.isStochastique());
     }
