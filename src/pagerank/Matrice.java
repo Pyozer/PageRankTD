@@ -108,13 +108,16 @@ public class Matrice {
         StringBuilder result = new StringBuilder();
         for (int line = 0; line < taille; line++) {
             for (int col = 0; col < taille; col++) {
-                result.append(" ").append(getCaseValue(line, col)).append(" ");
+                result.append(" ").append(String.format( "%.3f", precisionRound(getCaseValue(line, col)))).append(" ");
             }
             result.append("\n");
         }
         return result.toString();
     }
 
+    private double precisionRound(double number) {
+        return precisionRound(number, 3);
+    }
     private double precisionRound(double number, int precision) {
         double factor = Math.pow(10, precision);
         return Math.round(number * factor) / factor;
