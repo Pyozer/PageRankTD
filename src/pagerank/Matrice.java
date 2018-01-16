@@ -59,6 +59,16 @@ public class Matrice {
         return result;
     }
 
+    public int getWeight(int ligne) {
+        int result = 0;
+        for (int col = 0;col < taille;col++) {
+            if(matrice[ligne][col] > 0) {
+                result += matrice[ligne][col];
+            }
+        }
+        return result;
+    }
+
     public boolean isStochastique() {
         for (int line = 0; line < taille; line++) { // Pour chaque colonne
             float totalCol = 0.0f;
