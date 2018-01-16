@@ -8,7 +8,7 @@ public class Matrice {
     private final static int TAILLE = 10;
 
     //attributs
-    private float matrice[][];
+    private double matrice[][];
     private int taille;
 
     //Constructeurs
@@ -18,15 +18,15 @@ public class Matrice {
 
     public Matrice(int taille) {
         this.taille = taille;
-        matrice = new float[taille][taille];
+        matrice = new double[taille][taille];
     }
 
     //Getters et setters
-    public float[][] getMatrice() {
+    public double[][] getMatrice() {
         return matrice;
     }
 
-    public void setMatrice(float[][] tab) {
+    public void setMatrice(double[][] tab) {
         this.matrice = tab;
     }
 
@@ -41,44 +41,49 @@ public class Matrice {
     /**
      * fonction qui permet de remplir simplement les cases de l'attribut tab
      *
-     * @param col Colonne
-     * @param line Ligne
+     * @param col   Colonne
+     * @param line  Ligne
      * @param value Valeur
      */
-    public void fillCase(int line, int col, float value) {
+    public void fillCase(int line, int col, double value) {
         matrice[line][col] = value;
+    }
+
+    public double getCaseValue(int line, int col) {
+        return matrice[line][col];
     }
 
     public float getNbLinks(int ligne) {
         int result = 0;
-        for (int col = 0;col < taille;col++) {
-            if(matrice[ligne][col] > 0) {
+        for (int col = 0; col < taille; col++) {
+            if (getCaseValue(ligne, col) > 0) {
                 result += 1;
             }
         }
         return result;
     }
 
-    public float getWeight(int ligne) {
-        int result = 0;
-        for (int col = 0;col < taille;col++) {
-            if(matrice[ligne][col] > 0) {
-                result += matrice[ligne][col];
+    public double getWeight(int ligne) {
+        double result = 0.0f;
+        for (int col = 0; col < taille; col++) {
+            if (getCaseValue(ligne, col) > 0) {
+                result += getCaseValue(ligne, col);
             }
         }
         return result;
     }
 
     public boolean isStochastique() {
-        for (int line = 0; line < taille; line++) { // Pour chaque colonne
-            float totalCol = 0.0f;
+        for (int col = 0; col < taille; col++) { // Pour chaque colonne
+            double totalCol = 0.0f;
 
-            for (int col = 0; col < taille; col++) { // Pour chaques valeurs dans la colonne
-                totalCol += matrice[line][col]; // Emplacement (j, i)
+            for (int line = 0; line < taille; line++) { // Pour chaques valeurs dans la colonne
+                totalCol += getCaseValue(line, col); // Emplacement (j, i)
             }
 
-            if (totalCol != 1.0f) { // Si le total (ligne ou colonne) est supérieur à 0 et non égal à 1
-                System.out.println(totalCol);
+            totalCol = precisionRound(totalCol, 3);
+
+            if (totalCol != 1.0f && totalCol != 0.0f) { // Si le total est supérieur à 0 et non égal à 1
                 return false;
             }
         }
@@ -103,10 +108,15 @@ public class Matrice {
         StringBuilder result = new StringBuilder();
         for (int line = 0; line < taille; line++) {
             for (int col = 0; col < taille; col++) {
-                result.append(" ").append(matrice[col][line]).append(" ");
+                result.append(" ").append(getCaseValue(line, col)).append(" ");
             }
             result.append("\n");
         }
         return result.toString();
+    }
+
+    private double precisionRound(double number, int precision) {
+        double factor = Math.pow(10, precision);
+        return Math.round(number * factor) / factor;
     }
 }
