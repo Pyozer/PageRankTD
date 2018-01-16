@@ -104,8 +104,11 @@ public class Pagerank {
 
         mat.display();
 
-        Window window = new Window(listePage);
-
         System.out.print("Matrice stochastique ? " + mat.isStochastique());
+
+        List<Page> listePageAlgo1 = RankBasic.rank(listePage, mat);
+        List<Page> listePageAlgo2 = RankWeighted.rank(listePage, mat);
+
+        Window window = new Window(listePageAlgo2);
     }
 }

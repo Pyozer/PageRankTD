@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class RankBasic {
 
-    public List<Page> rank(List<Page> liste, Matrice graphe){
+    public static List<Page> rank(List<Page> liste, Matrice graphe){
 
         //On associe l'importance à chaque page de la liste passée en paramètres
         for(int i = 0; i< liste.size()-1;i++){
