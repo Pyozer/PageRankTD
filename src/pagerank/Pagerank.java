@@ -107,7 +107,7 @@ public class Pagerank {
 
         mat.display();
 
-        Window window = new Window(mat);
+        Window window = new Window(liste);
 
         System.out.print("Matrice stochastique ? " + mat.isStochastique());
     }

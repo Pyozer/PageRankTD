@@ -19,12 +19,12 @@ import java.util.List;
 import java.util.Map;
 
 public class Window {
-    private static final Color     DEFAULT_BG_COLOR = Color.decode("#FAFBFF");
+    private static final Color DEFAULT_BG_COLOR = Color.decode("#FAFBFF");
     private static final Dimension DEFAULT_SIZE = new Dimension(500,500);
     //
     private JGraphModelAdapter m_jgAdapter;
 
-    public Window(Matrice mat){
+    public Window(List<Page> pages){
         JFrame window = new JFrame("PageRankTD");
         window.setSize(DEFAULT_SIZE);
 
@@ -45,41 +45,53 @@ public class Window {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setVisible(true);
 
-        List<Page> pages = new ArrayList<>();
-        pages.add(new Page(89,1));
-        pages.add(new Page(70,2));
-        pages.add(new Page(70,3));
-        pages.add(new Page(70,4));
-        pages.add(new Page(63,5));
-        pages.add(new Page(52,6));
-        pages.add(new Page(42,7));
-        pages.add(new Page(40,8));
-        pages.add(new Page(40,9));
+//        List<Page> pages = new ArrayList<>();
+//        pages.add(new Page(89,1));
+//        pages.add(new Page(70,2));
+//        pages.add(new Page(70,3));
+//        pages.add(new Page(70,4));
+//        pages.add(new Page(63,5));
+//        pages.add(new Page(52,6));
+//        pages.add(new Page(42,7));
+//        pages.add(new Page(40,8));
+//        pages.add(new Page(40,9));
 
-        Page parent = null;
+        //Previous page added to the graph
         Page previous = null;
 
         int xPos = DEFAULT_SIZE.width/2;
         int yPos = 50;
-        int prevYPos = yPos;
+
+        int placeOnLine = 0;
 
         for(Page p : pages){
+            //If the importance is different, then start a new line
             if(previous != null && previous.getImportance() > p.getImportance()) {
-                parent = p;
-                yPos += 50;
+                placeOnLine = 0; //Element place on the line
+                xPos = DEFAULT_SIZE.width/2;//Default position of element (center)
+                yPos += 75;//Add a new line vertically
             }
+            //Add the vertex to the graph
             g.addVertex(p.getId());
-            if(parent != null){
-                g.addEdge(parent.getId(), p.getId());
+            //Add all the edge, representing the link of the page
+            for(Page p2 : p.getPageIn()){
+                g.addEdge(p2.getId(), p.getId());
             }
-            if(prevYPos == yPos) xPos+= 50;
+            //If we need to place, multiple element on the same line
+            if(nbPagesSameWidth(p, pages) > 1 && placeOnLine == 0){
+                //For the first element of the line, add a place to the counter and start to the right
+                placeOnLine ++;
+                xPos = 0;
+            }else if(nbPagesSameWidth(p, pages) > 1){
+                //For the others elements of the line, add the width divided by the number of element on the line minus 1
+                xPos+= DEFAULT_SIZE.width/(nbPagesSameWidth(p, pages) - 1);
+            }
+
+            //Properly positioning the vertex on the graph, with the position calculated previously
             positionVertexAt(p.getId(), xPos, yPos);
 
-            if(parent == null){
-                parent = p;
-            }
+            //Set the previous element
             previous = p;
-            prevYPos = yPos;
         }
     }
 
@@ -93,6 +105,15 @@ public class Window {
         Map cellAttr = new HashMap(  );
         cellAttr.put( cell, attr );
         m_jgAdapter.edit( cellAttr, null, null, null);
+    }
+    public int nbPagesSameWidth(Page page, List<Page> pages){
+        int nb = 0;
+        for(Page p : pages){
+            if(p.getImportance() == page.getImportance()){
+                nb++;
+            }
+        }
+        return nb;
     }
 
     public void old(){
