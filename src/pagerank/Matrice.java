@@ -49,7 +49,7 @@ public class Matrice {
         matrice[line][col] = value;
     }
 
-    public int getNbLinks(int ligne) {
+    public float getNbLinks(int ligne) {
         int result = 0;
         for (int col = 0;col < taille;col++) {
             if(matrice[ligne][col] > 0) {
