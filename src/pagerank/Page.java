@@ -1,11 +1,16 @@
 package pagerank;
 
+import java.util.List;
+
 /**
  * Created by i161040 on 10/01/2018.
  */
 public class Page {
-    double importance;
-    int id;
+
+    private double importance;
+    private int id;
+    private List<Page> pageIn;
+    private List<Page> pageOut;
 
     public Page(double importance, int id) {
         this.importance = importance;
@@ -13,7 +18,7 @@ public class Page {
     }
 
     public Page(int id) {
-        this.importance=0.0f;
+        this.importance = 0.0f;
         this.id = id;
     }
 
@@ -33,8 +38,32 @@ public class Page {
         this.id = id;
     }
 
+    public List<Page> getPageIn() {
+        return pageIn;
+    }
+
+    public void setPageIn(List<Page> pageIn) {
+        this.pageIn = pageIn;
+    }
+
+    public List<Page> getPageOut() {
+        return pageOut;
+    }
+
+    public void setPageOut(List<Page> pageout) {
+        this.pageOut = pageout;
+    }
+
+    public void addPageIn(Page page) {
+        this.pageIn.add(page);
+    }
+
+    public void addPageOut(Page page) {
+        this.pageOut.add(page);
+    }
+
     @Override
     public String toString() {
-        return "Page{importance=" + importance + ", id=" + id +"}";
+        return "Page{importance=" + importance + ", id=" + id + "}";
     }
 }
