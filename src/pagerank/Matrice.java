@@ -59,7 +59,7 @@ public class Matrice {
         return result;
     }
 
-    public int getWeight(int ligne) {
+    public float getWeight(int ligne) {
         int result = 0;
         for (int col = 0;col < taille;col++) {
             if(matrice[ligne][col] > 0) {
