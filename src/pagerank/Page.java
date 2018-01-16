@@ -1,5 +1,6 @@
 package pagerank;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,8 +10,8 @@ public class Page {
 
     private double importance;
     private int id;
-    private List<Page> pageIn;
-    private List<Page> pageOut;
+    private List<Page> pageIn = new ArrayList<>();
+    private List<Page> pageOut = new ArrayList<>();
 
     public Page(double importance, int id) {
         this.importance = importance;
