@@ -4,10 +4,10 @@ package pagerank;
  * Created by i161040 on 10/01/2018.
  */
 public class Page {
-    float importance;
+    double importance;
     int id;
 
-    public Page(float importance, int id) {
+    public Page(double importance, int id) {
         this.importance = importance;
         this.id = id;
     }
@@ -17,11 +17,11 @@ public class Page {
         this.id = id;
     }
 
-    public float getImportance() {
+    public double getImportance() {
         return importance;
     }
 
-    public void setImportance(float importance) {
+    public void setImportance(double importance) {
         this.importance = importance;
     }
 
