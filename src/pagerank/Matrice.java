@@ -18,8 +18,8 @@ public class Matrice {
         this(TAILLE);
     }
 
-    public Matrice(List<Page> listePages) {
-        this(listePages.size());
+    public Matrice(PageList listePages) {
+        this(listePages.getMaxId() + 1);
         generateFromPageList(listePages);
     }
 
@@ -28,10 +28,11 @@ public class Matrice {
         matrice = new double[taille][taille];
     }
 
-    private void generateFromPageList(List<Page> listePages) {
+    private void generateFromPageList(PageList listePages) {
         for(Page page : listePages) {
             for(Page pageIn : page.getPagesIn()) {
                 double value = 1.0f / (double) page.getPagesIn().size();
+                System.out.println("PAGE IN: " + pageIn.getId() + "\nPAGE: " + page.getId());
                 fillCase(pageIn.getId(), page.getId(), value);
             }
         }

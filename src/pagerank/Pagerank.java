@@ -1,12 +1,17 @@
 package pagerank;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.graphstream.graph.ElementNotFoundException;
+import org.graphstream.graph.Graph;
+import org.graphstream.graph.Node;
+import org.graphstream.graph.implementations.MultiGraph;
 
 public class Pagerank {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ElementNotFoundException {
+        System.setProperty("org.graphstream.ui.renderer", "org.graphstream.ui.j2dviewer.J2DGraphRenderer");
+
         int i = 0;
+        // Création des pages
         Page page0 = new Page(i);
         Page page1 = new Page(++i);
         Page page2 = new Page(++i);
@@ -21,7 +26,7 @@ public class Pagerank {
         Page page11 = new Page(++i);
         Page page12 = new Page(++i);
         Page page13 = new Page(++i);
-
+        // Création des liens entre page
         page0.setPagesOut(page1, page2, page3, page4, page6);
         page1.setPagesOut(page0, page4);
         page2.setPagesOut(page0, page1);
@@ -37,17 +42,55 @@ public class Pagerank {
         page12.setPagesOut(page9, page11);
         page13.setPagesOut(page9, page12);
 
-        List<Page> listePage = new ArrayList<>(List.of(page0, page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13));
+        PageList listePage = new PageList(page0, page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13);
 
-        int taille = 14;
         Matrice mat = new Matrice(listePage);
         mat.display();
 
         System.out.println("Matrice stochastique ? " + mat.isStochastique());
 
-        List<Page> listePageAlgo1 = RankBasic.rank(listePage, mat);
-        List<Page> listePageAlgo2 = RankWeighted.rank(listePage, mat);
+        PageList listePageAlgo1 = RankBasic.rank(listePage, mat);
+        System.out.println(listePageAlgo1.toString());
+        PageList listePageAlgo2 = RankWeighted.rank(listePage, mat);
 
-        Window window = new Window(listePageAlgo2);
+        // Création du graphe
+
+        Graph graph = new MultiGraph("Graphe Rank1");
+        graph.addAttribute("ui.antialias", true);
+        graph.addAttribute("ui.stylesheet", "node {" +
+                    "fill-color: red;" +
+                    "size-mode: normal;" +
+                    "text-alignment: above;" +
+                    "text-background-mode: plain;" +
+                    "text-background-color: #33333388;" +
+                    "text-padding: 2px;" +
+                "}" +
+                "edge {" +
+                    "arrow-size: 5px 5px;" +
+                    "arrow-shape: arrow;" +
+                "}");
+        graph.setStrict(false);
+        graph.setAutoCreate(true);
+
+
+        for (Page page : listePageAlgo1) {
+            for (Page pageOut : page.getPagesOut()) {
+                String idNode = page.getId() + ":" + pageOut.getId();
+                String nodeOrigin = String.valueOf(page.getId());
+                String nodeDest = String.valueOf(pageOut.getId());
+
+                graph.addEdge(idNode, nodeOrigin, nodeDest, true);
+
+                Node node = graph.getNode(nodeOrigin);
+                node.addAttribute("ui.size", listePage.size() / page.getImportance() + "px");
+                node.addAttribute("ui.label", "Page " + nodeOrigin + " (Rank " + Math.round(page.getImportance()) + ")");
+            }
+
+        }
+
+        graph.display();
+
+
+        //Window window = new Window(listePageAlgo2);
     }
 }

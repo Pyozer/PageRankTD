@@ -43,20 +43,12 @@ public class Page {
         return pagesIn;
     }
 
-    public void setPagesIn(Page... pagesIn) {
-        setPagesIn(List.of(pagesIn));
-    }
-
-    public void setPagesIn(List<Page> pagesIn) {
-        this.pagesIn = pagesIn;
-    }
-
     public List<Page> getPagesOut() {
         return pagesOut;
     }
 
     public void setPagesOut(Page... pagesOut) {
-        setPagesIn(List.of(pagesOut));
+        setPagesOut(List.of(pagesOut));
     }
 
     public void setPagesOut(List<Page> pagesOut) {
