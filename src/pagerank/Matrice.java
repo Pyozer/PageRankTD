@@ -53,7 +53,7 @@ public class Matrice {
         return matrice[line][col];
     }
 
-    public float getNbLinks(int ligne) {
+    public double getNbLinks(int ligne) {
         int result = 0;
         for (int col = 0; col < taille; col++) {
             if (getCaseValue(ligne, col) > 0) {
