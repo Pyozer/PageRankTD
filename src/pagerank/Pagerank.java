@@ -10,6 +10,49 @@ public class Pagerank {
             liste.add(new Page(i));
         }
         //System.out.println(liste);
+        int i = 0;
+        Page page0 = new Page(++i);
+        Page page1 = new Page(++i);
+        Page page2 = new Page(++i);
+        Page page3 = new Page(++i);
+        Page page4 = new Page(++i);
+        Page page5 = new Page(++i);
+        Page page6 = new Page(++i);
+        Page page7 = new Page(++i);
+        Page page8 = new Page(++i);
+        Page page9 = new Page(++i);
+        Page page10 = new Page(++i);
+        Page page11 = new Page(++i);
+        Page page12 = new Page(++i);
+        Page page13 = new Page(++i);
+
+        page0.addPageIn(page1, page2, page3, page4, page5);
+        page1.addPageIn(page0, page2);
+        page2.addPageIn(page0, page3);
+        page3.addPageIn(page0, page4);
+        page4.addPageIn(page0, page1);
+        page5.addPageIn(page6, page7, page8);
+        page6.addPageIn(page0, page7);
+        page7.addPageIn(page5);
+        page8.addPageIn(page7, page9);
+        page9.addPageIn(page5, page10, page11, page12, page13);
+        page10.addPageIn(page9, page11);
+        page11.addPageIn(page9, page12);
+        page12.addPageIn(page9, page13);
+        page13.addPageIn(page9, page10);
+
+        page0.addPageOut(page1, page2, page3, page4, page6);
+        page1.addPageOut(page0, page4);
+        page2.addPageOut(page0, page1);
+        page3.addPageOut(page0, page2);
+        page4.addPageOut(page0, page3);
+        page5.addPageOut(page0, page7, page9);
+        page6.addPageOut(page5);
+        page7.addPageOut(page5, page6, page8);
+        page8.addPageOut(page5);
+        page9.addPageOut(page8, page10, page11, page12, page13);
+        page10.addPageOut(page9, page13);
+        page11.addPageOut(page9, page10);
 
         int taille = 14;
         Matrice mat = new Matrice(taille);

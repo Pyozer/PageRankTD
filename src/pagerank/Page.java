@@ -55,12 +55,12 @@ public class Page {
         this.pageOut = pageout;
     }
 
-    public void addPageIn(Page page) {
-        this.pageIn.add(page);
+    public void addPageIn(Page... page) {
+        this.pageIn.addAll(List.of(page));
     }
 
-    public void addPageOut(Page page) {
-        this.pageOut.add(page);
+    public void addPageOut(Page... page) {
+        this.pageOut.addAll(List.of(page));
     }
 
     @Override
