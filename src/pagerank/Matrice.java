@@ -1,5 +1,7 @@
 package pagerank;
 
+import java.util.List;
+
 /**
  * Created by Leo on 12/12/2017.
  */
@@ -16,9 +18,23 @@ public class Matrice {
         this(TAILLE);
     }
 
+    public Matrice(List<Page> listePages) {
+        this(listePages.size());
+        generateFromPageList(listePages);
+    }
+
     public Matrice(int taille) {
         this.taille = taille;
         matrice = new double[taille][taille];
+    }
+
+    private void generateFromPageList(List<Page> listePages) {
+        for(Page page : listePages) {
+            for(Page pageIn : page.getPagesIn()) {
+                double value = 1.0f / (double) page.getPagesIn().size();
+                fillCase(pageIn.getId(), page.getId(), value);
+            }
+        }
     }
 
     //Getters et setters

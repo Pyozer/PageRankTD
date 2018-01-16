@@ -10,8 +10,8 @@ public class Page {
 
     private double importance;
     private int id;
-    private List<Page> pageIn = new ArrayList<>();
-    private List<Page> pageOut = new ArrayList<>();
+    private List<Page> pagesIn = new ArrayList<>();
+    private List<Page> pagesOut = new ArrayList<>();
 
     public Page(double importance, int id) {
         this.importance = importance;
@@ -39,28 +39,39 @@ public class Page {
         this.id = id;
     }
 
-    public List<Page> getPageIn() {
-        return pageIn;
+    public List<Page> getPagesIn() {
+        return pagesIn;
     }
 
-    public void setPageIn(List<Page> pageIn) {
-        this.pageIn = pageIn;
+    public void setPagesIn(Page... pagesIn) {
+        setPagesIn(List.of(pagesIn));
     }
 
-    public List<Page> getPageOut() {
-        return pageOut;
+    public void setPagesIn(List<Page> pagesIn) {
+        this.pagesIn = pagesIn;
     }
 
-    public void setPageOut(List<Page> pageout) {
-        this.pageOut = pageout;
+    public List<Page> getPagesOut() {
+        return pagesOut;
     }
 
-    public void addPageIn(Page... page) {
-        this.pageIn.addAll(List.of(page));
+    public void setPagesOut(Page... pagesOut) {
+        setPagesIn(List.of(pagesOut));
     }
 
-    public void addPageOut(Page... page) {
-        this.pageOut.addAll(List.of(page));
+    public void setPagesOut(List<Page> pagesOut) {
+        this.pagesOut = pagesOut;
+        for (Page pageDest : pagesOut) {
+            pageDest.addPageIn(this);
+        }
+    }
+
+    private void addPageIn(Page... pages) {
+        this.pagesIn.addAll(List.of(pages));
+    }
+
+    public void addPagesOut(Page... pages) {
+        this.pagesOut.addAll(List.of(pages));
     }
 
     @Override

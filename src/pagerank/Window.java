@@ -56,7 +56,7 @@ public class Window {
         int placeOnLine = 0;
 
         for(Page p : pages){
-            System.out.println(p.getImportance());
+            //System.out.println(p.getImportance());
             //If the importance is different, then start a new line
             if(previous != null && previous.getImportance() > p.getImportance()) {
                 placeOnLine = 0; //Element place on the line
@@ -86,7 +86,7 @@ public class Window {
 
         for(Page p : pages){
             //Add all the edge, representing the link of the page
-            for(Page p2 : p.getPageIn()){
+            for(Page p2 : p.getPagesIn()){
                 g.addEdge(p2.getId(),p.getId());
                 g.addEdge(p.getId(),p2.getId());
             }
