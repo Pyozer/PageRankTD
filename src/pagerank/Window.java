@@ -65,6 +65,7 @@ public class Window {
         int placeOnLine = 0;
 
         for(Page p : pages){
+            System.out.println(p.getImportance());
             //If the importance is different, then start a new line
             if(previous != null && previous.getImportance() > p.getImportance()) {
                 placeOnLine = 0; //Element place on the line
@@ -73,10 +74,7 @@ public class Window {
             }
             //Add the vertex to the graph
             g.addVertex(p.getId());
-            //Add all the edge, representing the link of the page
-            for(Page p2 : p.getPageIn()){
-                g.addEdge(p2.getId(), p.getId());
-            }
+
             //If we need to place, multiple element on the same line
             if(nbPagesSameWidth(p, pages) > 1 && placeOnLine == 0){
                 //For the first element of the line, add a place to the counter and start to the right
@@ -92,6 +90,15 @@ public class Window {
 
             //Set the previous element
             previous = p;
+        }
+
+
+        for(Page p : pages){
+            //Add all the edge, representing the link of the page
+            for(Page p2 : p.getPageIn()){
+                g.addEdge(p2.getId(),p.getId());
+                g.addEdge(p.getId(),p2.getId());
+            }
         }
     }
 
