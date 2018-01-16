@@ -13,10 +13,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 public class Window {
     private static final Color DEFAULT_BG_COLOR = Color.decode("#FAFBFF");
@@ -25,6 +23,9 @@ public class Window {
     private JGraphModelAdapter m_jgAdapter;
 
     public Window(List<Page> pages){
+
+        Collections.reverse(pages);
+
         JFrame window = new JFrame("PageRankTD");
         window.setSize(DEFAULT_SIZE);
 
