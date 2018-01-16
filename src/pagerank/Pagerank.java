@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Pagerank {
+
     public static void main(String[] args) {
         int i = 0;
         Page page0 = new Page(++i);
@@ -48,6 +49,8 @@ public class Pagerank {
         page9.addPageOut(page8, page10, page11, page12, page13);
         page10.addPageOut(page9, page13);
         page11.addPageOut(page9, page10);
+        page12.addPageOut(page9, page11);
+        page13.addPageOut(page9, page12);
 
         List<Page> listePage = new ArrayList<>(List.of(page0, page1, page2, page3, page4, page5, page6, page7, page8, page9, page10, page11, page12, page13));
 
@@ -72,9 +75,9 @@ public class Pagerank {
         mat.fillCase(0, 4, 1 / 2f);
         mat.fillCase(1, 4, 1 / 2f);
 
-        mat.fillCase(6, 5, 1/3f);//1/3
-        mat.fillCase(7, 5, 1/3f);//1/3
-        mat.fillCase(8, 5, 1/3f);//1/3
+        mat.fillCase(6, 5, 1 / 3f);
+        mat.fillCase(7, 5, 1 / 3f);
+        mat.fillCase(8, 5, 1 / 3f);
 
         mat.fillCase(0, 6, 1 / 2f);
         mat.fillCase(7, 6, 1 / 2f);
