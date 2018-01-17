@@ -10,6 +10,18 @@ public class PageList extends ArrayList<Page> {
         addAll(List.of(pages));
     }
 
+    public void addAll(Page... pages) {
+        addAll(List.of(pages));
+    }
+
+    public double getWeight() {
+        double weight = 0.0f;
+        for(Page page: this) {
+            weight += 1.0f / (double) page.getPagesOut().size();
+        }
+        return weight;
+    }
+
     /**
      * Renvoi l'ID maximum sur l'ensembe des pages
      *

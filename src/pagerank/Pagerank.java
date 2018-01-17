@@ -49,9 +49,9 @@ public class Pagerank {
 
         System.out.println("Matrice stochastique ? " + mat.isStochastique());
 
-        PageList listePageAlgo1 = RankBasic.rank(listePage, mat);
-        System.out.println(listePageAlgo1.toString());
-        PageList listePageAlgo2 = RankWeighted.rank(listePage, mat);
+        //PageList listePageAlgo = RankBasic.rank(listePage, mat);
+        //System.out.println(listePageAlgo1.toString());
+        PageList listePageAlgo = RankWeighted.rank(listePage, mat);
 
         // Création du graphe
 
@@ -59,21 +59,21 @@ public class Pagerank {
         graph.addAttribute("ui.antialias", true);
         graph.addAttribute("ui.stylesheet", "node {" +
                     "fill-color: red;" +
-                    "size-mode: normal;" +
+                    "size-mode: dyn-size;" +
                     "text-alignment: above;" +
                     "text-background-mode: plain;" +
                     "text-background-color: #33333388;" +
                     "text-padding: 2px;" +
                 "}" +
                 "edge {" +
-                    "arrow-size: 5px 5px;" +
+                    "arrow-size: 5px;" +
                     "arrow-shape: arrow;" +
                 "}");
         graph.setStrict(false);
         graph.setAutoCreate(true);
 
 
-        for (Page page : listePageAlgo1) {
+        for (Page page : listePageAlgo) {
             for (Page pageOut : page.getPagesOut()) {
                 String idNode = page.getId() + ":" + pageOut.getId();
                 String nodeOrigin = String.valueOf(page.getId());
@@ -82,8 +82,8 @@ public class Pagerank {
                 graph.addEdge(idNode, nodeOrigin, nodeDest, true);
 
                 Node node = graph.getNode(nodeOrigin);
-                node.addAttribute("ui.size", listePage.size() / page.getImportance() + "px");
-                node.addAttribute("ui.label", "Page " + nodeOrigin + " (Rank " + Math.round(page.getImportance()) + ")");
+                node.addAttribute("ui.size", Math.round((double) listePageAlgo.size() / ((double) listePageAlgo.size() / page.getImportance())) * 20);
+                node.addAttribute("ui.label", "Page " + nodeOrigin + " (Rank " + page.getImportance() + ")");
             }
 
         }

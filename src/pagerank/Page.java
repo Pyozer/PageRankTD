@@ -1,8 +1,5 @@
 package pagerank;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by i161040 on 10/01/2018.
  */
@@ -10,8 +7,8 @@ public class Page {
 
     private double importance;
     private int id;
-    private List<Page> pagesIn = new ArrayList<>();
-    private List<Page> pagesOut = new ArrayList<>();
+    private PageList pagesIn = new PageList();
+    private PageList pagesOut = new PageList();
 
     public Page(double importance, int id) {
         this.importance = importance;
@@ -19,8 +16,7 @@ public class Page {
     }
 
     public Page(int id) {
-        this.importance = 0.0f;
-        this.id = id;
+        this(0.0f, id);
     }
 
     public double getImportance() {
@@ -39,19 +35,19 @@ public class Page {
         this.id = id;
     }
 
-    public List<Page> getPagesIn() {
+    public PageList getPagesIn() {
         return pagesIn;
     }
 
-    public List<Page> getPagesOut() {
+    public PageList getPagesOut() {
         return pagesOut;
     }
 
     public void setPagesOut(Page... pagesOut) {
-        setPagesOut(List.of(pagesOut));
+        setPagesOut(new PageList(pagesOut));
     }
 
-    public void setPagesOut(List<Page> pagesOut) {
+    public void setPagesOut(PageList pagesOut) {
         this.pagesOut = pagesOut;
         for (Page pageDest : pagesOut) {
             pageDest.addPageIn(this);
@@ -59,11 +55,11 @@ public class Page {
     }
 
     private void addPageIn(Page... pages) {
-        this.pagesIn.addAll(List.of(pages));
+        this.pagesIn.addAll(pages);
     }
 
     public void addPagesOut(Page... pages) {
-        this.pagesOut.addAll(List.of(pages));
+        this.pagesOut.addAll(pages);
     }
 
     @Override
